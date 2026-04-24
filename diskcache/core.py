@@ -111,6 +111,7 @@ class Disk:
         :param int pickle_protocol: pickle protocol for serialization
 
         """
+        raise RuntimeError("Disk has been disabled as a mitigation for CVE-2025-69872. Please use JSONDisk instead.")
         self._directory = directory
         self.min_file_size = min_file_size
         self.pickle_protocol = pickle_protocol
@@ -348,7 +349,7 @@ class JSONDisk(Disk):
 
         """
         self.compress_level = compress_level
-        super().__init__(directory, **kwargs)
+        self._directory = directory
 
     def put(self, key):
         json_bytes = json.dumps(key).encode('utf-8')
