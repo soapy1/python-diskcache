@@ -657,7 +657,7 @@ def test_rsync():
     shutil.rmtree(cache_dir2, ignore_errors=True)
 
 
-class SHA256FilenameDisk(dc.Disk):
+class SHA256FilenameDisk(dc.JSONDisk):
     def filename(self, key=dc.UNKNOWN, value=dc.UNKNOWN):
         filename = hashlib.sha256(key).hexdigest()[:32]
         full_path = op.join(self._directory, filename)

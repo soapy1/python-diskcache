@@ -9,7 +9,7 @@ import sqlite3
 import tempfile
 import time
 
-from .core import DEFAULT_SETTINGS, ENOVAL, Cache, Disk, Timeout
+from .core import DEFAULT_SETTINGS, ENOVAL, Cache, JSONDisk, Timeout
 from .persistent import Deque, Index
 
 
@@ -17,7 +17,7 @@ class FanoutCache:
     """Cache that shards keys and values."""
 
     def __init__(
-        self, directory=None, shards=8, timeout=0.010, disk=Disk, **settings
+        self, directory=None, shards=8, timeout=0.010, disk=JSONDisk, **settings
     ):
         """Initialize cache instance.
 
@@ -607,7 +607,7 @@ class FanoutCache:
             temp = Cache(
                 directory=directory,
                 timeout=timeout,
-                disk=self._disk if disk is None else Disk,
+                disk=self._disk if disk is None else JSONDisk,
                 **settings,
             )
             _caches[name] = temp
